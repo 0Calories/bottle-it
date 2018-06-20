@@ -4,7 +4,7 @@
   "description": "Bottle your thoughts and cast them into the sea",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha server/**/*.test.js --timeout 5000 --exit"
   },
   "author": "Ash Anand",
   "license": "MIT",
@@ -15,7 +15,8 @@
     "mongoose": "^5.1.5"
   },
   "devDependencies": {
-    "expect": "^23.1.0",
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
     "supertest": "^3.1.0"
   }
 }

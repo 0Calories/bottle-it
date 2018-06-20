@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-let app = require('express')();
+const app = require('express')();
 const bodyParser = require('body-parser');
 const {MONGODB_URI, PORT} = require('./config/config');
 
@@ -22,9 +22,10 @@ app.post('/messages', async (req, res) => {
         let doc = await message.save();
         res.send(doc);
     } catch (e) {
-        console.log(e);
         res.status(400).send(e);
     }
 });
 
 app.listen(PORT, () => console.log(`Launched BottleIt server on port ${PORT}`));
+
+module.exports = { app };

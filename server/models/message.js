@@ -33,4 +33,4 @@ let Message = mongoose.model('Message', {
     }
 });
 
-module.exports = {Message};
+module.exports = { Message };
