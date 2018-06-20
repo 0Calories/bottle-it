@@ -1,0 +1,11 @@
+{
+    "dev": {
+        "PORT": 3000,
+        "MONGODB_URI": "mongodb://localhost:27017/BottleIt"
+    },
+
+    "qa": {
+        "PORT": 3000,
+        "MONGODB_URI": "mongodb://localhost:27017/BottleItTest"
+    }
+}

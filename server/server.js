@@ -1,14 +1,17 @@
-const mongoose = require('mongoose');
+require('./config/config');
 
+const mongoose = require('mongoose');
 const app = require('express')();
 const bodyParser = require('body-parser');
-const {MONGODB_URI, PORT} = require('./config/config');
 
 let {Message} = require('./models/message');
 
+// Configure Express to use the body-parser module for processing requests
 app.use(bodyParser.json());
 
-mongoose.connect(MONGODB_URI);
+// Initialize Mongoose
+mongoose.Promise = global.Promise;
+mongoose.connect(process.env.MONGODB_URI);
 
 // POST route for handling new Message creation
 app.post('/messages', async (req, res) => {
@@ -26,6 +29,6 @@ app.post('/messages', async (req, res) => {
     }
 });
 
-app.listen(PORT, () => console.log(`Launched BottleIt server on port ${PORT}`));
+app.listen(process.env.PORT, () => console.log(`Launched BottleIt server on port ${process.env.PORT}`));
 
 module.exports = { app };

@@ -4,7 +4,7 @@
   "description": "Bottle your thoughts and cast them into the sea",
   "main": "index.js",
   "scripts": {
-    "test": "mocha server/**/*.test.js --timeout 5000 --exit"
+    "test": "export NODE_ENV=qa || SET \"NODE_ENV=qa\" && mocha server/**/*.test.js --timeout 5000 --exit"
   },
   "author": "Ash Anand",
   "license": "MIT",

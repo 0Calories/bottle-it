@@ -1,4 +1,10 @@
-const MONGODB_URI = "mongodb://localhost:27017/BottleIt"
-const PORT = 3000;
+let env = process.env.NODE_ENV || 'dev';
 
-module.exports = {MONGODB_URI, PORT};
+if (env === 'dev' || env === 'qa') {
+    const config = require('./config.json');
+    const envConfig = config[env];
+
+    Object.keys(envConfig).forEach((key) => {
+        process.env[key] = envConfig[key];
+    });
+}

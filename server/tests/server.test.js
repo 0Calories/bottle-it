@@ -1,6 +1,10 @@
 const expect = require('chai').expect;
 const request = require('supertest');
 const {app} = require('./../server');
+const {Message} = require('./../models/message');
+
+// Clear the DB before performing a test
+beforeEach(() => Message.remove({}));
 
 describe('POST /messages', () => {
     it('should create a new message when given valid data', (done) => {
