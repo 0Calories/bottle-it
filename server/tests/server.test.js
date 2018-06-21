@@ -3,10 +3,10 @@ const request = require('supertest');
 const {app} = require('./../server');
 const {Message} = require('./../models/message');
 
-const {longTitle, longBody} = require('./test-constants');
+const { longTitle, longBody, populateMessages} = require('./test-constants');
 
 // Clear the DB before performing each test
-beforeEach(() => Message.remove({}));
+beforeEach(populateMessages);
 
 describe('POST /messages', () => {
     it('should create a new message when given valid data', (done) => {
@@ -49,6 +49,19 @@ describe('POST /messages', () => {
             .end(done);
     });
 
+    it('should reject a new message if the title length exceeds 100 characters', (done) => {
+        let newMessage = {
+            title: longTitle,
+            body: "This is a valid body"
+        };
+
+        request(app)
+            .post('/messages')
+            .send(newMessage)
+            .expect(400)
+            .end(done);
+    });
+
     it('should reject a new message if the body length exceeds 500 characters', (done) => {
         let newMessage = {
             title: "This is a valid title",
@@ -61,17 +74,19 @@ describe('POST /messages', () => {
             .expect(400)
             .end(done);
     });
+});
 
-    it('should reject a new message if the title length exceeds 100 characters', (done) => {
-        let newMessage = {
-            title: longBody,
-            body: "This is a valid body"
-        };
+describe('GET /messages', () => {
+    it('should fetch a random message if database not empty', (done) => {
 
         request(app)
-            .post('/messages')
-            .send(newMessage)
-            .expect(400)
+            .get('/messages')
+            .expect(200)
+            .expect((res) => {
+                expect(res.body.title).to.be.a('string');
+                expect(res.body.body).to.be.a('string');
+            })
             .end(done);
+
     });
 });

@@ -24,8 +24,18 @@ app.post('/messages', async (req, res) => {
         
         let doc = await message.save();
         res.send(doc);
-    } catch (e) {
-        res.status(400).send(e);
+    } catch (err) {
+        res.status(400).send(err);
+    }
+});
+
+app.get('/messages', async (req, res) => {
+    try {
+        let message = await Message.fetchRandom();
+        res.send(message);
+    } catch (err) {
+        console.log(err);
+        res.status(404).send();
     }
 });
 
