@@ -1,10 +1,13 @@
 {
   "name": "bottle-it",
   "version": "1.0.0",
-  "description": "Bottle your thoughts and cast them into the sea",
+  "description": "Bottle your thoughts and cast them out to sea",
   "main": "index.js",
   "scripts": {
     "test": "export NODE_ENV=qa || SET \"NODE_ENV=qa\" && mocha server/**/*.test.js --timeout 5000 --exit"
+  },
+  "engines": {
+    "node": "9.2.0"
   },
   "author": "Ash Anand",
   "license": "MIT",

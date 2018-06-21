@@ -3,7 +3,9 @@ const request = require('supertest');
 const {app} = require('./../server');
 const {Message} = require('./../models/message');
 
-// Clear the DB before performing a test
+const {longTitle, longBody} = require('./test-constants');
+
+// Clear the DB before performing each test
 beforeEach(() => Message.remove({}));
 
 describe('POST /messages', () => {
@@ -43,6 +45,32 @@ describe('POST /messages', () => {
         request(app)
             .post('/messages')
             .send(msgNoBody)
+            .expect(400)
+            .end(done);
+    });
+
+    it('should reject a new message if the body length exceeds 500 characters', (done) => {
+        let newMessage = {
+            title: "This is a valid title",
+            body: longBody
+        };
+
+        request(app)
+            .post('/messages')
+            .send(newMessage)
+            .expect(400)
+            .end(done);
+    });
+
+    it('should reject a new message if the title length exceeds 100 characters', (done) => {
+        let newMessage = {
+            title: longBody,
+            body: "This is a valid body"
+        };
+
+        request(app)
+            .post('/messages')
+            .send(newMessage)
             .expect(400)
             .end(done);
     });
