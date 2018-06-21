@@ -4,6 +4,7 @@
   "description": "Bottle your thoughts and cast them out to sea",
   "main": "index.js",
   "scripts": {
+    "start": "node server/server.js",
     "test": "export NODE_ENV=qa || SET \"NODE_ENV=qa\" && mocha server/**/*.test.js --timeout 5000 --exit"
   },
   "engines": {
