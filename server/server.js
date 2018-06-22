@@ -1,13 +1,18 @@
 require('./config/config');
 
+const path = require('path');
 const mongoose = require('mongoose');
-const app = require('express')();
+const express = require('express');
 const bodyParser = require('body-parser');
 
 let {Message} = require('./models/message');
 
-// Configure Express to use the body-parser module for processing requests
+const publicPath = path.join(__dirname, '../public');
+
+// Configure Express 
+let app = express();
 app.use(bodyParser.json());
+app.use(express.static(publicPath));
 
 // Initialize Mongoose
 mongoose.Promise = global.Promise;
